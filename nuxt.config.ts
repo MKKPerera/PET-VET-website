@@ -4,8 +4,9 @@ export default defineNuxtConfig({
   css: ['~/assets/css/main.css'],
   runtimeConfig: {
     public: {
-      siteUrl: 'https://pet-vet-website.vercel.app',
-      siteName: 'PawCare Pet & Vet'
+      siteUrl: 'https://petvetwebsite.vercel.app',
+      siteName: 'PawCare Pet & Vet',
+      gaId: 'G-3HSN455CF7'
     }
   },
   app: {
