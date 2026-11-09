@@ -1,7 +1,35 @@
 <script setup lang="ts">
 import { products } from '~/data/site'
 
-useHead({ title: 'Shop | PawCare' })
+const { siteUrl } = useRuntimeConfig().public
+
+usePageSeo({
+  title: 'Pet Shop – Dog, Cat, Bird & Small Pet Supplies',
+  description: 'Shop vet-approved pet food, toys, clothing and health products for dogs, cats, birds, rabbits and hamsters. Free delivery on orders over Rs. 10,000.',
+  path: '/shop',
+  image: '/images/dog-food.jpg'
+})
+
+useHead({
+  script: [{
+    type: 'application/ld+json',
+    innerHTML: JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'ItemList',
+      itemListElement: products.map((p, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        item: {
+          '@type': 'Product',
+          name: p.name,
+          image: `${siteUrl}${p.image}`,
+          category: p.category,
+          offers: { '@type': 'Offer', price: p.price, priceCurrency: 'LKR', availability: 'https://schema.org/InStock' }
+        }
+      }))
+    })
+  }]
+})
 
 const categories = ['All', 'Food', 'Toys', 'Clothing', 'Health']
 const pets = ['All pets', 'Dog', 'Cat', 'Bird', 'Small Pet']
@@ -26,7 +54,7 @@ const filtered = computed(() => {
 <template>
   <div>
     <section class="page-hero" style="background-image: url('/images/plush-toy.jpg')">
-      <h1>Pet Shop</h1>
+      <h1>Pet Shop – Food, Toys & Accessories</h1>
       <p>Vet-approved food, toys, clothing and health products for every pet.</p>
     </section>
 

@@ -1,6 +1,45 @@
 <script setup lang="ts">
 import { products, services, categories, gallery, testimonials } from '~/data/site'
 
+const { siteUrl, siteName } = useRuntimeConfig().public
+
+usePageSeo({
+  title: 'Pet Shop & Veterinary Clinic in Colombo',
+  description: 'PawCare is a pet shop and vet clinic in Colombo offering pet food, toys and accessories, plus vet checkups, vaccinations, grooming and boarding. Book online today.',
+  path: '/'
+})
+
+useHead({
+  link: [{ rel: 'preload', as: 'image', href: '/images/hero.jpg', fetchpriority: 'high' }],
+  script: [{
+    type: 'application/ld+json',
+    innerHTML: JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': ['PetStore', 'VeterinaryCare'],
+      name: siteName,
+      url: siteUrl,
+      logo: `${siteUrl}/favicon.svg`,
+      image: `${siteUrl}/images/hero.jpg`,
+      description: 'Pet shop and veterinary clinic offering pet supplies, checkups, vaccinations, grooming and boarding.',
+      telephone: '+94112345678',
+      email: 'hello@pawcare.lk',
+      priceRange: 'Rs. 950 – Rs. 6,500',
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: '123 Galle Road',
+        addressLocality: 'Colombo 03',
+        addressCountry: 'LK'
+      },
+      openingHoursSpecification: [
+        { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'], opens: '08:00', closes: '20:00' },
+        { '@type': 'OpeningHoursSpecification', dayOfWeek: 'Sunday', opens: '09:00', closes: '14:00' }
+      ]
+    })
+  }]
+})
+
+const galleryAlts = ['Golden retriever puppy running on grass', 'Black pug looking up', 'Kitten reaching up with its paw', 'Schnauzer licking its nose', 'Golden retriever being groomed', 'Black and white cat resting', 'Cavalier King Charles spaniel peeking', 'Close-up of a cat paw']
+
 const featured = products.slice(0, 4)
 const stats = [
   { value: '12k+', label: 'Happy pets' },
@@ -41,7 +80,7 @@ const stats = [
         </div>
         <div class="cats">
           <NuxtLink v-for="c in categories" :key="c.name" to="/shop" class="cat">
-            <img :src="c.image" :alt="c.name" loading="lazy">
+            <img :src="c.image" :alt="`${c.name} supplies`" width="300" height="300" loading="lazy">
             <span>{{ c.name }}</span>
           </NuxtLink>
         </div>
@@ -57,7 +96,7 @@ const stats = [
         </div>
         <div class="grid grid-4">
           <article v-for="s in services" :key="s.title" class="card service">
-            <img :src="s.image" :alt="s.title" loading="lazy">
+            <img :src="s.image" :alt="`${s.title} at PawCare`" width="400" height="300" loading="lazy">
             <div class="body">
               <h3>{{ s.title }}</h3>
               <p>{{ s.text }}</p>
@@ -84,7 +123,7 @@ const stats = [
 
     <section class="section section-alt">
       <div class="container about grid grid-2">
-        <img src="/images/about.jpg" alt="A cat and a dog cuddling" class="about-img" loading="lazy">
+        <img src="/images/about.jpg" alt="A cat and a dog cuddling" class="about-img" width="1000" height="800" loading="lazy">
         <div>
           <span class="eyebrow">Why PawCare</span>
           <h2>Love, care and expertise under one roof</h2>
@@ -123,7 +162,7 @@ const stats = [
           <h2>Pet Gallery</h2>
         </div>
         <div class="gallery">
-          <img v-for="(g, i) in gallery" :key="g" :src="g" :alt="`Pet photo ${i + 1}`" loading="lazy">
+          <img v-for="(g, i) in gallery" :key="g" :src="g" :alt="galleryAlts[i]" width="400" height="400" loading="lazy">
         </div>
       </div>
     </section>

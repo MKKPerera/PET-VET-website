@@ -1,5 +1,10 @@
 <script setup lang="ts">
-useHead({ title: 'Contact | PawCare' })
+usePageSeo({
+  title: 'Contact Us – Location, Phone & Opening Hours',
+  description: 'Visit PawCare Pet & Vet at 123 Galle Road, Colombo 03. Call +94 11 234 5678 or send us a message. Open Monday to Saturday 8am–8pm, Sunday 9am–2pm.',
+  path: '/contact',
+  image: '/images/retriever.jpg'
+})
 
 const form = reactive({ name: '', email: '', message: '' })
 const sent = ref(false)

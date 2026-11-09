@@ -1,20 +1,44 @@
 <script setup lang="ts">
 import { services, vets } from '~/data/site'
 
-useHead({ title: 'Vet Services | PawCare' })
+const { siteUrl, siteName } = useRuntimeConfig().public
+
+usePageSeo({
+  title: 'Veterinary Services – Checkups, Vaccinations & Grooming',
+  description: 'Professional vet services in Colombo: wellness checkups, puppy and kitten vaccinations, grooming and pet boarding. Experienced vets and 24/7 emergency care.',
+  path: '/services',
+  image: '/images/vet-checkup.jpg'
+})
+
+useHead({
+  script: [{
+    type: 'application/ld+json',
+    innerHTML: JSON.stringify({
+      '@context': 'https://schema.org',
+      '@graph': services.map(s => ({
+        '@type': 'Service',
+        name: s.title,
+        description: s.text,
+        image: `${siteUrl}${s.image}`,
+        areaServed: 'Colombo, Sri Lanka',
+        provider: { '@type': 'VeterinaryCare', name: siteName, url: siteUrl }
+      }))
+    })
+  }]
+})
 </script>
 
 <template>
   <div>
     <section class="page-hero" style="background-image: url('/images/vet-checkup.jpg')">
-      <h1>Veterinary Services</h1>
+      <h1>Veterinary Services in Colombo</h1>
       <p>Compassionate, modern care for dogs, cats, birds and exotic pets.</p>
     </section>
 
     <section class="section">
       <div class="container list">
         <article v-for="(s, i) in services" :key="s.title" :class="['row', { flip: i % 2 }]">
-          <img :src="s.image" :alt="s.title" loading="lazy">
+          <img :src="s.image" :alt="`${s.title} for pets at PawCare`" width="900" height="675" loading="lazy">
           <div>
             <h2>{{ s.title }}</h2>
             <p>{{ s.text }}</p>

@@ -1,7 +1,12 @@
 <script setup lang="ts">
 import { services, vets } from '~/data/site'
 
-useHead({ title: 'Book Appointment | PawCare' })
+usePageSeo({
+  title: 'Book a Vet Appointment Online',
+  description: 'Book a vet checkup, vaccination, grooming or boarding appointment online at PawCare, Colombo. Same-day appointments and 24/7 emergency care available.',
+  path: '/appointment',
+  image: '/images/vaccination.jpg'
+})
 
 const route = useRoute()
 const today = new Date().toISOString().slice(0, 10)

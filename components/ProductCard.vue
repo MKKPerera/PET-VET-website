@@ -15,7 +15,7 @@ const addToCart = () => {
 <template>
   <article class="card product">
     <div class="img">
-      <img :src="product.image" :alt="product.name" loading="lazy">
+      <img :src="product.image" :alt="product.name" width="700" height="525" loading="lazy">
       <span class="tag">{{ product.category }}</span>
     </div>
     <div class="body">

@@ -1,7 +1,12 @@
 <script setup lang="ts">
 import { formatPrice } from '~/data/site'
 
-useHead({ title: 'Cart | PawCare' })
+usePageSeo({
+  title: 'Your Cart',
+  description: 'Review the pet products in your PawCare cart and check out.',
+  path: '/cart',
+  noindex: true
+})
 
 const { items, setQty, remove, total } = useCart()
 const delivery = computed(() => (total.value >= 10000 || total.value === 0 ? 0 : 450))
