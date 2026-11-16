@@ -6,7 +6,8 @@ export default defineNuxtConfig({
     public: {
       siteUrl: 'https://petvetwebsite.vercel.app',
       siteName: 'PawCare Pet & Vet',
-      gaId: 'G-3HSN455CF7'
+      gaId: 'G-3HSN455CF7',
+      gtmId: 'GTM-NNN9G43X'
     }
   },
   app: {
